@@ -906,7 +906,8 @@ class GPErrorSimple(BaseEstimator, RegressorMixin):
             return self.log_marginal_likelihood_value_
 
         kernel = self.kernel_.clone_with_theta(theta)
-
+        kernel_theta = theta[:3]
+        weight_theta = theta[3:][:, np.newaxis]
         if eval_gradient:
             K, K_gradient = kernel(self.X_train_, eval_gradient=True)
         else:
